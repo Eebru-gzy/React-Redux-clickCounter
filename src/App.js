@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import {add} from './action';
 
-function App() {
+
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+    <h2>Redux State counter </h2>
+      <pre>{JSON.stringify(props.reduxState, null, 5)}</pre>
+
+      <button onClick={() => {props.add()}}>Click to Count</button>
+   </div>
   );
+
 }
 
-export default App;
+const mapStateToProp = (state) => {
+  return {
+    reduxState: state
+  }
+
+}
+
+export default connect(mapStateToProp, {add: add}) (App)
